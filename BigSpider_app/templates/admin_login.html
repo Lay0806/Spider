@@ -1,0 +1,44 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<div class="col-md-4 col-md-offset-4 place">
+
+    <form id="register-form" class="form-signin" action="{% url 'admin_login' %}" method="post">
+        <h2 class="form-signin-heading">管理员登录</h2>
+        <p class="text-danger">{{ login_message }}</p>
+        <label for="admin_name" class="sr-only">用户名</label>
+        <input id="admin_name" name="admin_name" class="form-control" placeholder="请输入管理员用户名" autofocus type="text"><br>
+        <label for="admin_psd" class="sr-only">密码</label>
+        <input id="admin_psd" name="admin_psd" class="form-control" placeholder="请输入管理员密码" type="password"><br>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+    </form>
+
+</div> <!-- /container -->
+{% endblock %}
+{% block manager_register_login_options_js %}
+<script src="/static/js/jquery.validate.js"></script>
+<script type="text/javascript">
+    $().ready(function(){
+        $("#register-form").validate({
+            rules:{
+                admin_name: {
+                    required:true
+                },
+                admin_psd:{
+                    required:true
+                }
+            },
+            messages:{
+                admin_name: {
+                    required: "请输入用户名"
+                },
+                admin_psd:{
+                    required: "请输入密码"
+                }
+            }
+        });
+    });
+
+</script>
+{% endblock %}
+

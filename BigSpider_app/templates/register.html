@@ -1,0 +1,70 @@
+{% extends 'index.html' %}
+
+{% block content %}
+    <div class="col-md-4 col-md-offset-4">
+
+      <form id="register-form" class="form-signin" action="{% url 'register' %}" method="post">
+        <h2 class="form-signin-heading">请注册</h2>
+          <p class="text-danger">{{ message }}</p>
+        <label for="username" class="sr-only">用户名</label>
+        <input id="username" name="username" class="form-control" placeholder="请输入用户名" autofocus type="text"><br>
+        <label for="email" class="sr-only">邮箱地址</label>
+        <input id="email" name="email" class="form-control" placeholder="请输入邮箱地址" type="email"><br>
+        <label for="phone_num" class="sr-only">手机号码</label>
+        <input id="phone_num" name="phone_num" class="form-control" placeholder="请输入手机号码" type="text"><br>
+        <label for="password" class="sr-only">密码</label>
+        <input id="password" name="password" class="form-control" placeholder="请输入密码" type="password"><br>
+        <label for="confirm_password" class="sr-only">重复密码</label>
+        <input id="confirm_password" name="confirm_password" class="form-control" placeholder="请重复输入密码" type="password"><br>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">注册</button>
+      </form>
+
+    </div> <!-- /container -->
+{% endblock %}
+
+{% block manager_register_login_options_js %}
+<script src="/static/js/jquery.validate.js"></script>
+<script type="text/javascript">
+    $().ready(function(){
+        $("#register-form").validate({
+            rules:{
+                username: {
+                    required:true
+                },
+                email:{
+                    required:true ,
+                    email:true
+                },
+                phone_num:{
+                    required:true
+                },
+                password:{
+                    required:true
+                },
+                confirm_password:{
+                    equalTo:"#password"
+                }
+            },
+            messages:{
+                username: {
+                    required: "请输入用户名"
+                },
+                email:{
+                    required:"请输入邮箱地址" ,
+                    email:"输入的邮箱地址不符合格式"
+                },
+                phone_num:{
+                    required: "请输入电话号码"
+                },
+                password:{
+                    required: "请输入密码"
+                },
+                confirm_password:{
+                    equalTo:"两次输入的密码不一致"
+                }
+            }
+        });
+    });
+</script>
+{% endblock %}
+

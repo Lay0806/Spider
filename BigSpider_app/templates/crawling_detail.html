@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Zeusis Spider</title>
+
+        <!-- Bootstrap core CSS     -->
+        {% load staticfiles %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+        <link href="/static/css/bootstrap.min.css" rel="stylesheet"/>
+
+        <!--  Light Bootstrap Table core CSS    -->
+        <link href="/static/css/light-bootstrap-dashboard.css" rel="stylesheet"/>
+        <!--     Fonts and icons     -->
+        <link href="/static/css/pe-icon-7-stroke.css" rel="stylesheet"/>
+
+
+        <link rel="stylesheet" href="/static/css/bootstrap-select.min.css">
+
+        <!--自定义css-->
+        <link rel="stylesheet" href="/static/css/custom.css"/>  
+    </head>
+    <body>
+        <div class="content">
+    <div class="container-fluid">
+        {% block content %}
+        {% if flag %}
+        <div class="panel panel-primary panelClass">
+            <div class="panel-heading">
+                <div style="width:50%">
+                    <h3 class="panel-title paneltop">爬取信息呈现</h3>
+                </div>
+                <div style="width:50%">
+                    <a download="bigdata.xls" href="#" onclick="return ExcellentExport.excel(this, 'bootstrap-table', 'Big Data Sheet');">Export to Excel very big table</a><br/>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="box">
+                            <table class="table table-bordered table-hover" id="bootstrap-table">
+                                <thead>
+                                    <tr class = "info">
+                                    <th>主题</th>
+                                    <th>作者</th>
+                                    <th>内容</th>
+                                    <th>创建时间</th>
+                                    <th>地址</th>
+                                    </tr>
+                                </thead>
+                                {% for crawling in crawlingInfo %}
+                                <tbody>
+                                    <tr>
+                                        <td>{{ crawling.title }}</td>
+                                        <td>{{ crawling.auther }}</td>
+                                        <td>{{ crawling.context }}</td>
+                                        <td>{{ crawling.create_time }}</td>
+                                        <td>{{ crawling.url }}</td>
+                                    </tr>
+                                </tbody>
+                                {% endfor %}
+                        </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    {% else %}
+    <div class="card">
+        <div class="header">
+            <h4 class="title text-center"><br>欲使用爬虫系统请先登录<br><br>若无账号请先注册.</h4><br>
+        </div>
+    </div>
+    {% endif %}
+    {% endblock %}
+    </body>
+    <script src="/static/js/excellentexport.js"></script>
+    <script src="/static/js/excellentexport.min.js"></script>
+</html>
+
+

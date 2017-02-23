@@ -1,0 +1,108 @@
+{% extends 'admin_index.html' %}
+
+{% block options %}
+<div class="sidebar-wrapper">
+            <div class="logo">
+                <h4 class="simple-text">Zeusis Spider<br/>后台管理系统</h4>
+            </div>
+            <ul class="nav">
+                <li>
+                    <a href="{% url 'admin_index' %}">
+                        <i class="pe-7s-file"></i>
+                        <p>系统状态</p>
+                    </a>
+                    </li>
+                <li  class="active">
+                    <a href="{% url 'admin_manage_users' %}">
+                        <i class="pe-7s-users"></i>
+                        <p>用户管理</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'admin_index' %}">
+                        <i class="pe-7s-helm"></i>
+                        <p>其他管理</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        {% endblock %}
+{% block page_container %}
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    {% block content %}
+                    {% if flag %}
+                    <table class="table table-condensed tableplace">
+                        <thead>
+                        <tr>
+                            <th width="15%">用户名</th>
+                             <th width="15%">用户身份</th>
+                            <th width="15%">电话</th>
+                            <th width="15%">邮箱</th>
+                            <th width="20%">备注</th>
+                            <th width="20%">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                         {% for admin in admin_list %}
+                        <tr>
+                            <td>
+                                {{ admin.admin_name }}
+                            </td>
+                            <td>
+                                管理员
+                            </td>
+                            <td>
+                                电话
+                                <!--{{ users.phone_num }}-->
+                            </td>
+                            <td>
+                                邮箱
+                                <!--{{ users.email }}-->
+                            </td>
+                            <td>
+                                备注
+                            </td>
+                            <td>
+                                <!--<a role="button" class="btn btn-default"-->
+                                   <!--href="{% url 'admin_req_modify_user' %}?userid={{ users.userid }}" >修改</a>-->
+                                <a role="button" class="btn btn-default"
+                                   href="javascript:void(0);" onclick="(function() {window.location.href='/admin_delete_user/?userid={{ users.userid }}'})();">删除</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        {% for users in users_list %}
+                        <tr>
+                            <td>
+                                {{ users.username }}
+                            </td>
+                            <td>
+                                网站用户
+                            </td>
+                            <td>
+                                {{ users.phone_num }}
+                            </td>
+                            <td>
+                                {{ users.email }}
+                            </td>
+                            <td>
+                                {{ users.remark }}
+                            </td>
+                            <td>
+                                <a role="button" class="btn btn-default"
+                                   href="{% url 'admin_req_modify_user' %}?userid={{ users.userid }}" >修改</a>
+                                <a role="button" class="btn btn-default"
+                                   href="javascript:void(0);" onclick="(function() {window.location.href='/admin_delete_user/?userid={{ users.userid }}'})();">删除</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+
+                    {% endif %}
+                    {% endblock %}
+                </div>
+
+            </div>
+        </div>
+{% endblock %}

@@ -1,0 +1,33 @@
+
+/*调整分页部分样式*/
+.pagination.square{
+    margin:0; /*去除外边距*/
+}
+
+.pagination.square > li > a,
+.pagination.square > li > span{
+    margin:0 5px;
+    border:1px solid #dddddd;  /* 设置所有的边框都为1像素*/
+}
+
+.pagination.square > li:first-child > a,
+.pagination.square > li:first-child > span,
+.pagination.square > li:last-child > a,
+.pagination.square > li:last-child > span {
+    margin-left:0px;
+    padding-left:10px;
+    padding-right:10px;
+    border-radius:0px;  /*取消圆角*/
+}
+
+/*调整按钮和图标位置*/
+.btn > .glyphicon {
+    margin-right:3px;
+}
+
+thead > tr:not(:first-child) > td:nth-child(1),
+thead > tr:not(:first-child) > td:nth-child(2),
+tbody > tr > td:nth-child(1),
+tbody > tr > td:nth-child(2) {
+    text-align:center;
+}

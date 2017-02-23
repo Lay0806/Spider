@@ -1,0 +1,117 @@
+{% extends 'index.html' %}
+{% block options %}
+<div class="sidebar-wrapper">
+    <div class="logo">
+        <h4 class="simple-text">Zeusis Spider</h4>
+    </div>
+    <ul class="nav">
+        <li>
+            <a href="{% url 'index' %}">
+                <i class="pe-7s-file"></i>
+                <p>运行状态</p>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'site_management' %}">
+                <i class="pe-7s-helm"></i>
+                <p>站点管理</p>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'spiders_management' %}">
+                <i class="pe-7s-culture"></i>
+                <p>爬虫管理</p>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'log_management' %}">
+                <i class="pe-7s-news-paper"></i>
+                <p>日志管理</p>
+            </a>
+        </li>
+        <li class="active">
+            <a href="{% url 'crawling_info' %}">
+                <i class="pe-7s-ribbon"></i>
+                <p>爬取结果</p>
+            </a>
+        </li>
+
+    </ul>
+</div>
+{% endblock %}
+
+{% block page_container %}
+<div class="content">
+    <div class="container-fluid">
+        {% block content %}
+        {% if flag %}
+        <div class="panel panel-primary panelClass">
+            <div class="panel-heading">
+                <h3 class="panel-title paneltop">爬取信息呈现</h3>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="box">
+                            <table class="table table-bordered table-hover" id="bootstrap-table">
+                                <thead>
+                                <tr class = "info">
+                                    <th>站点</th>
+                                    <th>关键字</th>
+                                    <th>完成时间</th>
+                                    <th>爬取条目</th>
+                                    <th>详细数据</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for crawling_info in crawling_web_info %}
+                                <tr>
+                                    <td>{{ crawling_info.0 }}</td>
+                                    <td>{{ crawling_info.1 }}</td>
+                                    <td>{{ crawling_info.4 }}</td>
+                                    <td>{{ crawling_info.2 }}</td>
+                                    <td>
+                                        <form id = "detail_form{{ crawling_info.3 }}" action="/do_detail">
+                                        <input type="hidden" id="detail_id" name="detail_id" value="{{ crawling_info.3 }}">
+                                        <button type="button" class="btn btn-sm btn-default" data-toggle="modal"
+                                                data-target="#update_form"  onclick="func_detail({{crawling_info.3}});">
+                                            <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>详细数据
+                                        </button>
+                                    </form>
+                                    </td>
+                                </tr>
+                                {%endfor%}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    {% else %}
+    <div class="card">
+        <div class="header">
+            <h4 class="title text-center"><br>欲使用爬虫系统请先登录<br><br>若无账号请先注册.</h4><br>
+        </div>
+    </div>
+    {% endif %}
+    {% endblock %}
+</div>
+<script>
+    function show_data(data){
+        var content = data;
+        $("#update_form").modal('show');
+        $("#my_p").html(content);
+    }
+
+    function func_detail(id){
+        var form=document.getElementById('detail_form'+id);
+        form.submit();
+
+    }
+</script>
+{% endblock %}
+
+

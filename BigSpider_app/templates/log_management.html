@@ -1,0 +1,64 @@
+{% extends 'index.html' %}
+
+{% block options %}
+<div class="sidebar-wrapper">
+    <div class="logo">
+        <h4 class="simple-text">Zeusis Spider</h4>
+    </div>
+
+    <ul class="nav">
+        <li>
+            <a href="{% url 'index' %}">
+                <i class="pe-7s-file"></i>
+                <p>运行状态</p>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'site_management' %}">
+                <i class="pe-7s-helm"></i>
+                <p>站点管理</p>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'spiders_management' %}">
+                <i class="pe-7s-culture"></i>
+                <p>爬虫管理</p>
+            </a>
+        </li>
+        <li class="active">
+            <a href="{% url 'log_management' %}">
+                <i class="pe-7s-news-paper"></i>
+                <p>日志管理</p>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'crawling_info' %}">
+                <i class="pe-7s-ribbon"></i>
+                <p>爬取结果</p>
+            </a>
+        </li>
+    </ul>
+</div>
+{% endblock %}
+
+{% block page_container %}
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            {% block content %}
+            {% if flag %}
+            日志管理
+            {% else %}
+            <div class="card">
+                <div class="header">
+                    <h4 class="title text-center"><br>欲使用爬虫系统请先登录<br><br>若无账号请先注册.</h4><br>
+                </div>
+            </div>
+            {% endif %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
